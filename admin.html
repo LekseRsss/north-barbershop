@@ -1,51 +1,212 @@
+
 <!DOCTYPE html>
 <html lang="ru">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Администратор — North Barbershop</title>
+  <title>NORTH — Администратор</title>
   <style>
     * { box-sizing: border-box; }
     body {
       margin: 0;
-      padding: 30px 16px;
+      padding: 28px 16px;
       background: #101010;
       color: #f7f4ee;
       font-family: Arial, sans-serif;
     }
-    main { max-width: 1000px; margin: auto; }
-    h1 { color: #c6a46a; }
-    .subtitle { color: #bfb8aa; }
+    main { max-width: 1100px; margin: auto; }
+    h1, h2 { color: #c6a46a; }
+    .muted { color: #bfb8aa; }
     .panel {
-      margin-top: 24px;
+      margin-top: 20px;
       padding: 22px;
       background: #191919;
       border: 1px solid #40382b;
       border-radius: 10px;
     }
-    .notice {
-      padding: 14px;
-      background: #29251e;
-      border-radius: 6px;
-      line-height: 1.5;
+    input, button {
+      width: 100%;
+      padding: 13px;
+      margin: 7px 0;
+      border-radius: 5px;
+      font: inherit;
     }
+    input {
+      color: white;
+      background: #101010;
+      border: 1px solid #504735;
+    }
+    button {
+      background: #c6a46a;
+      border: 0;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    button.secondary { background: #333; color: white; }
+    button.danger { background: #6e2929; color: white; }
+    .message { overflow-wrap: anywhere; line-height: 1.5; }
+    .booking {
+      padding: 16px 0;
+      border-bottom: 1px solid #40382b;
+    }
+    .booking:last-child { border-bottom: 0; }
+    .status { color: #e0c18a; font-weight: bold; }
+    .actions { display: flex; gap: 8px; flex-wrap: wrap; }
+    .actions button { flex: 1; min-width: 130px; }
     a { color: #c6a46a; }
+    [hidden] { display: none !important; }
   </style>
 </head>
 <body>
-  <main>
-    <h1>NORTH — Администратор</h1>
-    <p class="subtitle">Панель управления записями клиентов</p>
+<main>
+  <h1>NORTH — Администратор</h1>
+  <p class="muted">Панель управления записями клиентов</p>
 
-    <section class="panel">
-      <h2>Записи клиентов</h2>
-      <div class="notice">
-        Страница создана. Подключение записей и безопасный вход
-        администратора будут настроены следующим шагом.
-      </div>
-    </section>
+  <section class="panel" id="login-panel">
+    <h2>Вход администратора</h2>
+    <form id="login-form">
+      <label for="email">Email</label>
+      <input id="email" type="email" autocomplete="username"
+             required placeholder="admin@example.com">
+      <label for="password">Пароль</label>
+      <input id="password" type="password"
+             autocomplete="current-password" required>
+      <button type="submit">Войти</button>
+    </form>
+    <p id="login-message" class="message" role="status"></p>
+  </section>
 
-    <p><a href="./">← Вернуться на сайт</a></p>
-  </main>
+  <section class="panel" id="bookings-panel" hidden>
+    <div class="actions">
+      <button id="refresh-button" type="button">Обновить заявки</button>
+      <button id="logout-button" class="secondary" type="button">Выйти</button>
+    </div>
+    <p id="bookings-message" class="message" role="status"></p>
+    <div id="bookings-list"></div>
+  </section>
+
+  <p><a href="./">← Вернуться на сайт</a></p>
+</main>
+
+<script type="module">
+  import { createClient } from
+    "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm";
+
+  // Вставь сюда Project URL из Supabase → Settings → API Keys.
+  const SUPABASE_URL = "https://dctbpxvfpqdidzbewryr.supabase.co";
+
+  // Публичный Publishable key проекта Supabase.
+  const SUPABASE_KEY =
+    "sb_publishable_nL_Ndkc8LbZ6dG-n5j9DGg_lWwwPE3C";
+
+  const loginPanel = document.querySelector("#login-panel");
+  const bookingsPanel = document.querySelector("#bookings-panel");
+  const loginForm = document.querySelector("#login-form");
+  const loginMessage = document.querySelector("#login-message");
+  const bookingsMessage = document.querySelector("#bookings-message");
+  const bookingsList = document.querySelector("#bookings-list");
+
+  if (!SUPABASE_URL.startsWith("https://") ||
+      SUPABASE_URL.includes("ВСТАВЬ")) {
+    loginMessage.textContent =
+      "Сначала укажи Project URL в настройках кода.";
+    loginForm.querySelector("button").disabled = true;
+  } else {
+    start();
+  }
+
+  async function start() {
+    const supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
+
+    loginForm.addEventListener("submit", async (event) => {
+      event.preventDefault();
+      loginMessage.textContent = "Проверяем вход…";
+
+      const email = document.querySelector("#email").value.trim();
+      const password = document.querySelector("#password").value;
+
+      const { error } = await supabase.auth.signInWithPassword({
+        email,
+        password
+      });
+
+      if (error) {
+        loginMessage.textContent =
+          "Не удалось войти. Проверь email, пароль и настройки Supabase.";
+        return;
+      }
+
+      loginMessage.textContent = "";
+      await showBookings();
+    });
+
+    document.querySelector("#refresh-button").addEventListener(
+      "click", showBookings
+    );
+
+    document.querySelector("#logout-button").addEventListener(
+      "click", async () => {
+        await supabase.auth.signOut();
+        bookingsPanel.hidden = true;
+        loginPanel.hidden = false;
+        bookingsList.replaceChildren();
+        loginMessage.textContent = "Ты вышла из панели.";
+      }
+    );
+
+    supabase.auth.onAuthStateChange((_event, session) => {
+      if (!session) {
+        bookingsPanel.hidden = true;
+        loginPanel.hidden = false;
+      }
+    });
+
+    const { data: { session } } = await supabase.auth.getSession();
+    if (session) await showBookings();
+
+    async function showBookings() {
+      bookingsMessage.textContent = "Загружаем заявки…";
+      bookingsList.replaceChildren();
+
+      const { data, error } = await supabase
+        .from("bookings")
+        .select("id, customer_name, phone, service, booking_date, booking_time, status")
+        .order("booking_date", { ascending: true })
+        .order("booking_time", { ascending: true });
+
+      if (error) {
+        bookingsMessage.textContent =
+          "Не удалось загрузить заявки. Проверь права доступа RLS для аккаунта администратора.";
+        return;
+      }
+
+      loginPanel.hidden = true;
+      bookingsPanel.hidden = false;
+      bookingsMessage.textContent = data.length
+        ? `Заявок найдено: ${data.length}`
+        : "Пока заявок нет.";
+
+      for (const booking of data) {
+        const card = document.createElement("article");
+        card.className = "booking";
+
+        const heading = document.createElement("h3");
+        heading.textContent =
+          `${booking.customer_name || "Без имени"} — ${booking.service || "Услуга не указана"}`;
+
+        const details = document.createElement("p");
+        details.textContent =
+          `Телефон: ${booking.phone || "—"} · Дата: ${booking.booking_date || "—"} · Время: ${booking.booking_time || "—"}`;
+
+        const status = document.createElement("p");
+        status.className = "status";
+        status.textContent = `Статус: ${booking.status || "pending"}`;
+
+        card.append(heading, details, status);
+        bookingsList.append(card);
+      }
+    }
+  }
+</script>
 </body>
-
+</html>
