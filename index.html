@@ -44,16 +44,11 @@
       text-decoration: none;
     }
 
-    button,
-    input,
-    select {
+    button, input, select {
       font: inherit;
     }
 
-    button,
-    a,
-    input,
-    select {
+    button, a, input, select {
       -webkit-tap-highlight-color: transparent;
     }
 
@@ -201,17 +196,7 @@
       border-color: var(--gold-light);
     }
 
-    .button-outline {
-      background: transparent;
-      color: var(--gold-light);
-    }
-
-    .button-outline:hover {
-      background: var(--gold);
-      color: #111;
-    }
-
-    /* ОБЩИЕ СЕКЦИИ */
+    /* СЕКЦИИ */
 
     .section {
       padding: 90px 0;
@@ -242,7 +227,7 @@
       font-size: 14px;
     }
 
-    /* УСЛУГИ И ЦЕНЫ */
+    /* УСЛУГИ */
 
     .services {
       background: #0d0d0d;
@@ -633,9 +618,9 @@
           <div class="eyebrow">NORTH BARBERSHOP</div>
 
           <h1>
-            СТИЛЬ.
-            <span>ТОЧНОСТЬ.</span>
-            NORTH.
+            СТИЛЬ
+            <span>ТОЧНОСТЬ</span>
+            NORTH
           </h1>
 
           <p class="hero-description">
@@ -653,18 +638,14 @@
         <div class="section-heading">
           <div class="section-label">NORTH BARBERSHOP</div>
           <h2>УСЛУГИ И <span class="gold">ЦЕНЫ</span></h2>
-          <p>
-            Выбирай свою услугу и бронируй удобное время.
-          </p>
+          <p>Выбирай свою услугу и бронируй удобное время.</p>
         </div>
 
         <div class="services-grid">
           <article class="service-card">
             <div class="service-number">01 / HAIRCUT</div>
             <h3>Мужская стрижка</h3>
-            <p>
-              Аккуратная форма, точные линии и чистый результат.
-            </p>
+            <p>Аккуратная форма, точные линии и чистый результат.</p>
             <div class="service-bottom">
               <div class="service-price">2 000 <small>₽</small></div>
             </div>
@@ -673,9 +654,7 @@
           <article class="service-card">
             <div class="service-number">02 / BEARD</div>
             <h3>Оформление бороды</h3>
-            <p>
-              Чёткий контур и ухоженный вид с вниманием к форме.
-            </p>
+            <p>Чёткий контур и ухоженный вид с вниманием к форме.</p>
             <div class="service-bottom">
               <div class="service-price">1 000 <small>₽</small></div>
             </div>
@@ -685,9 +664,7 @@
             <div class="service-number">03 / COMBO</div>
             <span class="service-tag">КОМПЛЕКС</span>
             <h3>Стрижка + борода</h3>
-            <p>
-              Комплексный уход за образом за один визит.
-            </p>
+            <p>Комплексный уход за образом за один визит.</p>
             <div class="service-bottom">
               <div class="service-price">1 600 <small>₽</small></div>
             </div>
@@ -706,23 +683,17 @@
         <div class="details-grid">
           <article class="detail">
             <h3>Точность</h3>
-            <p>
-              Внимание к форме, контурам и деталям каждой стрижки.
-            </p>
+            <p>Внимание к форме, контурам и деталям каждой стрижки.</p>
           </article>
 
           <article class="detail">
             <h3>Твой стиль</h3>
-            <p>
-              Подбираем образ с учётом твоих предпочтений.
-            </p>
+            <p>Подбираем образ с учётом твоих предпочтений.</p>
           </article>
 
           <article class="detail">
             <h3>Удобная запись</h3>
-            <p>
-              Выбирай услугу, дату и доступное время онлайн.
-            </p>
+            <p>Выбирай услугу, дату и доступное время онлайн.</p>
           </article>
         </div>
       </div>
@@ -732,6 +703,7 @@
       <div class="container booking-layout">
         <div class="booking-copy">
           <div class="section-label">BOOK YOUR VISIT</div>
+
           <div class="section-heading">
             <h2>ТВОЯ СЛЕДУЮЩАЯ <span class="gold">СТРИЖКА</span></h2>
           </div>
@@ -843,12 +815,6 @@
   </footer>
 
   <script>
-    /*
-      SUPABASE
-      Используется публичный publishable key.
-      Не вставляй сюда secret key или service_role key.
-    */
-
     const SUPABASE_URL =
       "https://dctbpxvfpqdidzbewryr.supabase.co";
 
@@ -865,16 +831,8 @@
     const messageBox = document.getElementById("form-message");
 
     const TIMES = [
-      "10:00",
-      "11:00",
-      "12:00",
-      "13:00",
-      "14:00",
-      "15:00",
-      "16:00",
-      "17:00",
-      "18:00",
-      "19:00"
+      "10:00", "11:00", "12:00", "13:00", "14:00",
+      "15:00", "16:00", "17:00", "18:00", "19:00"
     ];
 
     document.getElementById("current-year").textContent =
@@ -884,7 +842,6 @@
       const year = date.getFullYear();
       const month = String(date.getMonth() + 1).padStart(2, "0");
       const day = String(date.getDate()).padStart(2, "0");
-
       return `${year}-${month}-${day}`;
     }
 
@@ -971,7 +928,6 @@
 
     dateInput.addEventListener("change", refreshTimeOptions);
 
-    // Обновляем список, если страница долго оставалась открытой.
     document.addEventListener("visibilitychange", () => {
       if (!document.hidden) {
         setMinimumDate();
@@ -990,7 +946,10 @@
       const bookingTime = timeInput.value;
 
       if (customerName.length < 2) {
-        showMessage("Пожалуйста, введи имя длиной не менее 2 символов.", "error");
+        showMessage(
+          "Пожалуйста, введи имя длиной не менее 2 символов.",
+          "error"
+        );
         nameInput.focus();
         return;
       }
@@ -1002,7 +961,10 @@
       }
 
       if (!service || !bookingDate || !bookingTime) {
-        showMessage("Заполни все поля и выбери дату и время.", "error");
+        showMessage(
+          "Заполни все поля и выбери дату и время.",
+          "error"
+        );
         return;
       }
 
@@ -1100,7 +1062,11 @@
           return;
         }
 
-        console.error("Supabase booking error:", response.status, responseText);
+        console.error(
+          "Supabase booking error:",
+          response.status,
+          responseText
+        );
 
         showMessage(
           "Не удалось отправить заявку. Попробуй ещё раз позже.",
