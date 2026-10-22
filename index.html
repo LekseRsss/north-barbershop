@@ -3,473 +3,1121 @@
 <html lang="ru">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#101010">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#0a0a0a">
+  <meta name="description" content="NORTH Barbershop — мужские стрижки, оформление бороды и запись онлайн.">
   <title>NORTH Barbershop — Мужские стрижки</title>
-  <meta name="description" content="NORTH Barbershop — мужские стрижки, оформление бороды и комплексные услуги. Запишись онлайн.">
-  <style>
-    * { box-sizing: border-box; }
 
+  <style>
     :root {
-      --gold: #c6a46a;
-      --gold-light: #e0c18a;
-      --black: #101010;
-      --panel: #191919;
-      --muted: #b4b0a8;
-      --line: rgba(198,164,106,.28);
+      --bg: #0a0a0a;
+      --panel: #111111;
+      --gold: #c8a45d;
+      --gold-light: #e0c17c;
+      --text: #f5f1e8;
+      --muted: #aaa49a;
+      --border: #34312b;
+      --danger: #ff8585;
+      --success: #a5d6a7;
     }
 
-    html { scroll-behavior: smooth; scroll-padding-top: 90px; }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      scroll-padding-top: 85px;
+    }
 
     body {
-      margin: 0;
-      background: var(--black);
-      color: #f7f4ee;
-      font-family: Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      font-family: Arial, Helvetica, sans-serif;
       line-height: 1.6;
     }
 
-    header {
-      position: sticky;
-      top: 0;
-      z-index: 10;
-      padding: 18px 8%;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 18px;
-      background: rgba(16,16,16,.97);
-      border-bottom: 1px solid var(--line);
-      backdrop-filter: blur(12px);
-    }
-
-    .logo {
-      display: flex;
-      flex-direction: column;
-      line-height: 1.15;
-      color: var(--gold);
-      font-size: 28px;
-      font-weight: bold;
-      letter-spacing: 5px;
+    a {
+      color: inherit;
       text-decoration: none;
     }
 
-    .logo-subtitle {
-      margin-top: 5px;
-      color: var(--muted);
-      font-size: 9px;
-      font-weight: normal;
-      letter-spacing: 2.5px;
-    }
-
-    nav { display: flex; flex-wrap: wrap; gap: 22px; }
-    nav a { color: #fff; text-decoration: none; }
-    nav a:hover { color: var(--gold); }
-
-    .hero {
-      min-height: 76vh;
-      padding: 100px 8%;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: flex-start;
-      border-bottom: 1px solid var(--line);
-      background:
-        linear-gradient(90deg, rgba(17,17,17,.96), rgba(17,17,17,.55)),
-        url("https://images.unsplash.com/photo-1503951914875-452162b0f3f1?auto=format&fit=crop&w=1800&q=85");
-      background-size: cover;
-      background-position: center;
-    }
-
-    .eyebrow {
-      color: var(--gold);
-      letter-spacing: 4px;
-      text-transform: uppercase;
-      font-size: 13px;
-      font-weight: bold;
-    }
-
-    h1 {
-      max-width: 800px;
-      margin: 10px 0 20px;
-      font-size: clamp(42px, 7vw, 86px);
-      line-height: 1.06;
-      letter-spacing: -2px;
-    }
-
-    .hero-copy {
-      max-width: 550px;
-      color: #e0ddd6;
-      font-size: 18px;
-    }
-
-    .cta {
-      display: inline-block;
-      margin-top: 16px;
-      padding: 15px 28px;
-      background: var(--gold);
-      border: 1px solid var(--gold);
-      color: #111;
-      text-decoration: none;
-      font-weight: bold;
-    }
-
-    .cta:hover { background: var(--gold-light); }
-
-    .section { padding: 76px 8%; }
-
-    .section h2 {
-      margin: 0 0 16px;
-      font-size: clamp(28px, 4vw, 42px);
-      line-height: 1.2;
-    }
-
-    .section-intro { margin-bottom: 30px; color: var(--muted); }
-
-    .service-list {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 22px;
-    }
-
-    .service {
-      padding: 28px;
-      background: linear-gradient(145deg, #1d1d1d, #141414);
-      border: 1px solid #35312a;
-    }
-
-    .service h3 { color: var(--gold); font-size: 21px; }
-    .service p { min-height: 52px; color: var(--muted); }
-    .service strong { color: var(--gold-light); font-size: 19px; }
-
-    #booking {
-      background: #151515;
-      border-top: 1px solid var(--line);
-      border-bottom: 1px solid var(--line);
-    }
-
-    #booking-form {
-      max-width: 600px;
-      display: grid;
-      gap: 10px;
-      padding: 28px;
-      background: #1b1b1b;
-      border: 1px solid #39342b;
-      border-radius: 8px;
-    }
-
-    #booking-form label {
-      margin-top: 7px;
-      color: var(--gold);
-      font-size: 14px;
-      font-weight: bold;
-    }
-
-    #booking-form input,
-    #booking-form select {
-      width: 100%;
-      min-height: 48px;
-      padding: 13px;
-      border: 1px solid #45413a;
-      border-radius: 4px;
-      background: #111;
-      color: white;
+    button,
+    input,
+    select {
       font: inherit;
     }
 
-    #booking-form input:focus,
-    #booking-form select:focus {
-      outline: 2px solid var(--gold);
-      outline-offset: 1px;
+    button,
+    a,
+    input,
+    select {
+      -webkit-tap-highlight-color: transparent;
     }
 
-    #booking-form button {
-      min-height: 52px;
-      margin-top: 12px;
-      padding: 15px;
-      border: 0;
-      border-radius: 4px;
+    .container {
+      width: min(1120px, calc(100% - 40px));
+      margin: 0 auto;
+    }
+
+    .gold {
+      color: var(--gold-light);
+    }
+
+    /* ШАПКА */
+
+    .header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(10, 10, 10, 0.96);
+      border-bottom: 1px solid var(--border);
+      backdrop-filter: blur(12px);
+    }
+
+    .nav {
+      min-height: 76px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+    }
+
+    .logo {
+      font-size: 27px;
+      font-weight: 800;
+      letter-spacing: 5px;
+      color: var(--gold-light);
+    }
+
+    .logo small {
+      display: block;
+      font-size: 9px;
+      letter-spacing: 4px;
+      color: var(--text);
+      font-weight: 400;
+      text-align: center;
+      line-height: 1.4;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+      font-size: 13px;
+      color: #d1cdc5;
+    }
+
+    .nav-links a:hover {
+      color: var(--gold-light);
+    }
+
+    .nav-cta {
+      padding: 11px 17px;
+      border: 1px solid var(--gold);
+      color: var(--gold-light);
+      font-size: 12px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+
+    .nav-cta:hover {
       background: var(--gold);
       color: #111;
-      font-size: 15px;
-      font-weight: bold;
+    }
+
+    /* ГЛАВНЫЙ ЭКРАН */
+
+    .hero {
+      min-height: 590px;
+      display: flex;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
+      background:
+        linear-gradient(
+          90deg,
+          rgba(5, 5, 5, 0.97) 0%,
+          rgba(5, 5, 5, 0.85) 48%,
+          rgba(5, 5, 5, 0.35) 100%
+        ),
+        url("https://images.unsplash.com/photo-1503951914875-452162b0f3f1?auto=format&fit=crop&w=2000&q=85")
+        center 45% / cover no-repeat;
+    }
+
+    .hero-content {
+      max-width: 720px;
+      padding: 90px 0;
+    }
+
+    .eyebrow {
+      color: var(--gold-light);
+      font-size: 11px;
+      letter-spacing: 5px;
+      text-transform: uppercase;
+    }
+
+    .hero h1 {
+      margin: 24px 0;
+      font-size: clamp(46px, 8vw, 88px);
+      line-height: 0.98;
+      letter-spacing: 2px;
+      font-weight: 800;
+    }
+
+    .hero h1 span {
+      display: block;
+      color: var(--gold-light);
+    }
+
+    .hero-description {
+      max-width: 430px;
+      color: #c4c0b8;
+      font-size: 16px;
+      margin-bottom: 34px;
+    }
+
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 50px;
+      padding: 14px 24px;
+      background: var(--gold);
+      border: 1px solid var(--gold);
+      color: #111;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
       cursor: pointer;
+      transition: background 0.2s, color 0.2s, border-color 0.2s;
     }
 
-    #booking-form button:hover { background: var(--gold-light); }
-    #booking-form button:disabled { opacity: .6; cursor: wait; }
-    #booking-message { overflow-wrap: anywhere; }
-    .success { color: #a8d8ad; }
-    .error { color: #ffaaaa; }
+    .button:hover {
+      background: var(--gold-light);
+      border-color: var(--gold-light);
+    }
 
-    footer {
-      padding: 38px 8%;
-      border-top: 1px solid #333;
+    .button-outline {
+      background: transparent;
+      color: var(--gold-light);
+    }
+
+    .button-outline:hover {
+      background: var(--gold);
+      color: #111;
+    }
+
+    /* ОБЩИЕ СЕКЦИИ */
+
+    .section {
+      padding: 90px 0;
+    }
+
+    .section-heading {
+      margin-bottom: 42px;
+    }
+
+    .section-label {
+      color: var(--gold);
+      font-size: 11px;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+    }
+
+    .section-heading h2 {
+      margin-top: 12px;
+      font-size: clamp(30px, 5vw, 46px);
+      letter-spacing: 1px;
+      line-height: 1.15;
+    }
+
+    .section-heading p {
+      max-width: 560px;
+      margin-top: 14px;
       color: var(--muted);
+      font-size: 14px;
     }
 
-    footer h2 { color: var(--gold); letter-spacing: 2px; }
-    footer a { color: var(--gold-light); }
+    /* УСЛУГИ И ЦЕНЫ */
 
-    @media (max-width: 600px) {
-      header { padding: 15px 5%; align-items: flex-start; }
-      .logo { font-size: 22px; letter-spacing: 3px; }
-      .logo-subtitle { font-size: 8px; letter-spacing: 1.5px; }
-      nav { gap: 10px; justify-content: flex-end; }
-      nav a { font-size: 13px; }
-      .hero { min-height: 65vh; padding: 72px 6%; }
-      .eyebrow { font-size: 11px; letter-spacing: 3px; }
-      h1 { letter-spacing: -1px; }
-      .hero-copy { font-size: 16px; }
-      .section { padding: 52px 6%; }
-      .service { padding: 23px; }
-      #booking-form { padding: 20px; }
-      footer { padding: 28px 6%; }
+    .services {
+      background: #0d0d0d;
+    }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .service-card {
+      min-height: 275px;
+      padding: 28px;
+      display: flex;
+      flex-direction: column;
+      border: 1px solid var(--border);
+      background: var(--panel);
+      transition: transform 0.25s, border-color 0.25s;
+    }
+
+    .service-card:hover {
+      transform: translateY(-4px);
+      border-color: var(--gold);
+    }
+
+    .service-number {
+      color: var(--gold);
+      font-size: 12px;
+      letter-spacing: 2px;
+    }
+
+    .service-card h3 {
+      margin-top: 27px;
+      font-size: 21px;
+      font-weight: 500;
+    }
+
+    .service-card p {
+      margin-top: 10px;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.8;
+    }
+
+    .service-bottom {
+      margin-top: auto;
+      padding-top: 25px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .service-price {
+      color: var(--gold-light);
+      font-size: 34px;
+      line-height: 1.2;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    .service-price small {
+      font-size: 20px;
+    }
+
+    .service-card-featured {
+      border-color: var(--gold);
+      background: linear-gradient(145deg, #1b1811, #111 72%);
+    }
+
+    .service-tag {
+      align-self: flex-start;
+      margin-top: 12px;
+      padding: 4px 8px;
+      border: 1px solid var(--gold);
+      color: var(--gold-light);
+      font-size: 9px;
+      letter-spacing: 2px;
+    }
+
+    .service-card-featured h3 {
+      margin-top: 17px;
+    }
+
+    /* ПРЕИМУЩЕСТВА */
+
+    .details-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 30px;
+    }
+
+    .detail {
+      padding-top: 20px;
+      border-top: 1px solid var(--gold);
+    }
+
+    .detail h3 {
+      margin-bottom: 10px;
+      font-size: 17px;
+      font-weight: 500;
+    }
+
+    .detail p {
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.8;
+    }
+
+    /* ЗАПИСЬ */
+
+    .booking {
+      background:
+        radial-gradient(ellipse at top right, #211b10 0%, transparent 48%),
+        #0d0d0d;
+    }
+
+    .booking-layout {
+      display: grid;
+      grid-template-columns: 0.85fr 1.15fr;
+      gap: 65px;
+      align-items: start;
+    }
+
+    .booking-copy p {
+      margin-top: 18px;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.9;
+    }
+
+    .booking-note {
+      margin-top: 28px;
+      padding: 18px;
+      border-left: 2px solid var(--gold);
+      background: rgba(255, 255, 255, 0.025);
+      color: #c6c0b4;
+      font-size: 12px;
+      line-height: 1.8;
+    }
+
+    .booking-form {
+      padding: 30px;
+      border: 1px solid var(--border);
+      background: #101010;
+    }
+
+    .form-title {
+      margin-bottom: 25px;
+      font-size: 22px;
+      font-weight: 500;
+    }
+
+    .form-group {
+      margin-bottom: 19px;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 8px;
+      color: #d5d0c7;
+      font-size: 12px;
+      letter-spacing: 0.5px;
+    }
+
+    .form-group input,
+    .form-group select {
+      width: 100%;
+      min-height: 48px;
+      padding: 12px 13px;
+      border: 1px solid #38352f;
+      border-radius: 0;
+      outline: none;
+      background: #090909;
+      color: var(--text);
+      font-size: 14px;
+    }
+
+    .form-group input:focus,
+    .form-group select:focus {
+      border-color: var(--gold);
+    }
+
+    .form-group input::placeholder {
+      color: #77736c;
+    }
+
+    .form-group select option {
+      background: #111;
+      color: var(--text);
+    }
+
+    input[type="date"] {
+      color-scheme: dark;
+    }
+
+    .form-hint {
+      display: block;
+      margin-top: 7px;
+      color: #89847b;
+      font-size: 11px;
+    }
+
+    .form-submit {
+      width: 100%;
+      margin-top: 5px;
+    }
+
+    .form-message {
+      display: none;
+      margin-top: 18px;
+      padding: 13px;
+      border: 1px solid var(--border);
+      font-size: 13px;
+      line-height: 1.7;
+      overflow-wrap: anywhere;
+    }
+
+    .form-message.visible {
+      display: block;
+    }
+
+    .form-message.success {
+      color: var(--success);
+      border-color: #36543a;
+      background: #101a11;
+    }
+
+    .form-message.error {
+      color: var(--danger);
+      border-color: #613434;
+      background: #1b1010;
+    }
+
+    .form-message.info {
+      color: var(--gold-light);
+      border-color: #574726;
+      background: #19150d;
+    }
+
+    .form-submit:disabled {
+      cursor: wait;
+      opacity: 0.65;
+    }
+
+    /* ПОДВАЛ */
+
+    .footer {
+      padding: 35px 0;
+      border-top: 1px solid var(--border);
+      background: #080808;
+    }
+
+    .footer-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 25px;
+    }
+
+    .footer-brand {
+      color: var(--gold-light);
+      font-size: 18px;
+      font-weight: 700;
+      letter-spacing: 3px;
+    }
+
+    .footer p,
+    .footer a {
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .footer a:hover {
+      color: var(--gold-light);
+    }
+
+    .footer-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 18px;
+    }
+
+    /* МОБИЛЬНАЯ ВЕРСИЯ */
+
+    @media (max-width: 800px) {
+      .nav {
+        min-height: 68px;
+      }
+
+      .nav-links {
+        gap: 14px;
+      }
+
+      .nav-links a:not(.nav-cta) {
+        display: none;
+      }
+
+      .hero {
+        min-height: 530px;
+        background-position: 58% center;
+      }
+
+      .hero-content {
+        padding: 75px 0;
+      }
+
+      .services-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .service-card {
+        min-height: 225px;
+      }
+
+      .details-grid {
+        grid-template-columns: 1fr;
+        gap: 26px;
+      }
+
+      .booking-layout {
+        grid-template-columns: 1fr;
+        gap: 35px;
+      }
+
+      .section {
+        padding: 65px 0;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .container {
+        width: calc(100% - 30px);
+      }
+
+      .logo {
+        font-size: 23px;
+      }
+
+      .nav-cta {
+        padding: 10px 11px;
+        font-size: 10px;
+        letter-spacing: 0.5px;
+      }
+
+      .hero h1 {
+        font-size: 49px;
+      }
+
+      .hero-description {
+        font-size: 14px;
+      }
+
+      .booking-form {
+        padding: 20px 16px;
+      }
+
+      .footer-content {
+        flex-direction: column;
+        align-items: flex-start;
+      }
     }
   </style>
 </head>
+
 <body>
-  <header>
-    <a class="logo" href="#" aria-label="NORTH — главная">
-      NORTH
-      <span class="logo-subtitle">BARBERSHOP • EST. 2026</span>
-    </a>
-    <nav aria-label="Основная навигация">
-      <a href="#services">Услуги</a>
-      <a href="#booking">Запись</a>
-      <a href="#contacts">Контакты</a>
-    </nav>
+
+  <header class="header">
+    <div class="container nav">
+      <a class="logo" href="#home" aria-label="NORTH Barbershop">
+        NORTH
+        <small>BARBERSHOP</small>
+      </a>
+
+      <nav class="nav-links" aria-label="Основная навигация">
+        <a href="#services">Услуги</a>
+        <a href="#about">О нас</a>
+        <a class="nav-cta" href="#booking">Записаться</a>
+      </nav>
+    </div>
   </header>
 
   <main>
-    <section class="hero">
-      <p class="eyebrow">Мужская парикмахерская</p>
-      <h1>Твой стиль.<br>Твои правила.</h1>
-      <p class="hero-copy">Чёткие линии, внимание к деталям и стиль, который подходит именно тебе.</p>
-      <a class="cta" href="#booking">Записаться к мастеру</a>
-    </section>
+    <section class="hero" id="home">
+      <div class="container">
+        <div class="hero-content">
+          <div class="eyebrow">NORTH BARBERSHOP</div>
 
-    <section class="section" id="services">
-      <h2>Наши услуги</h2>
-      <p class="section-intro">Выбери услугу — оставь заявку онлайн.</p>
+          <h1>
+            СТИЛЬ.
+            <span>ТОЧНОСТЬ.</span>
+            NORTH.
+          </h1>
 
-      <div class="service-list">
-        <article class="service">
-          <h3>Мужская стрижка</h3>
-          <p>Аккуратная стрижка с учётом твоего стиля.</p>
-          <strong>От 1 000 ₽</strong>
-        </article>
-        <article class="service">
-          <h3>Стрижка бороды</h3>
-          <p>Чёткие контуры и ухоженный вид.</p>
-          <strong>От 600 ₽</strong>
-        </article>
-        <article class="service">
-          <h3>Комплекс</h3>
-          <p>Стрижка и оформление бороды.</p>
-          <strong>От 1 500 ₽</strong>
-        </article>
+          <p class="hero-description">
+            Мужские стрижки и оформление бороды.
+            Точная работа, уверенный стиль, внимание к деталям.
+          </p>
+
+          <a href="#booking" class="button">Записаться на стрижку</a>
+        </div>
       </div>
     </section>
 
-    <section class="section" id="booking">
-      <h2>Записаться к мастеру</h2>
-      <p class="section-intro">
-        Выбери дату и время. Заявка будет отправлена мастеру, а запись подтвердят отдельно.
-      </p>
+    <section class="section services" id="services">
+      <div class="container">
+        <div class="section-heading">
+          <div class="section-label">NORTH BARBERSHOP</div>
+          <h2>УСЛУГИ И <span class="gold">ЦЕНЫ</span></h2>
+          <p>
+            Выбирай свою услугу и бронируй удобное время.
+          </p>
+        </div>
 
-      <form id="booking-form">
-        <label for="client-name">Твоё имя</label>
-        <input id="client-name" name="name" type="text"
-          minlength="2" maxlength="100" autocomplete="name"
-          placeholder="Например, Алексей" required>
+        <div class="services-grid">
+          <article class="service-card">
+            <div class="service-number">01 / HAIRCUT</div>
+            <h3>Мужская стрижка</h3>
+            <p>
+              Аккуратная форма, точные линии и чистый результат.
+            </p>
+            <div class="service-bottom">
+              <div class="service-price">2 000 <small>₽</small></div>
+            </div>
+          </article>
 
-        <label for="client-phone">Телефон</label>
-        <input id="client-phone" name="phone" type="tel"
-          minlength="5" maxlength="30" autocomplete="tel"
-          placeholder="+7 900 000-00-00" required>
+          <article class="service-card">
+            <div class="service-number">02 / BEARD</div>
+            <h3>Оформление бороды</h3>
+            <p>
+              Чёткий контур и ухоженный вид с вниманием к форме.
+            </p>
+            <div class="service-bottom">
+              <div class="service-price">1 000 <small>₽</small></div>
+            </div>
+          </article>
 
-        <label for="service">Услуга</label>
-        <select id="service" name="service" required>
-          <option value="">Выбери услугу</option>
-          <option value="Мужская стрижка">Мужская стрижка — от 1 000 ₽</option>
-          <option value="Стрижка бороды">Стрижка бороды — от 600 ₽</option>
-          <option value="Комплекс">Комплекс — от 1 500 ₽</option>
-        </select>
+          <article class="service-card service-card-featured">
+            <div class="service-number">03 / COMBO</div>
+            <span class="service-tag">КОМПЛЕКС</span>
+            <h3>Стрижка + борода</h3>
+            <p>
+              Комплексный уход за образом за один визит.
+            </p>
+            <div class="service-bottom">
+              <div class="service-price">1 600 <small>₽</small></div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
 
-        <label for="booking-date">Желаемая дата</label>
-        <input id="booking-date" name="date" type="date" required>
+    <section class="section" id="about">
+      <div class="container">
+        <div class="section-heading">
+          <div class="section-label">OUR APPROACH</div>
+          <h2>НИЧЕГО <span class="gold">ЛИШНЕГО</span></h2>
+        </div>
 
-        <label for="booking-time">Желаемое время</label>
-        <select id="booking-time" name="time" required>
-          <option value="">Выбери время</option>
-          <option value="10:00">10:00</option>
-          <option value="11:00">11:00</option>
-          <option value="12:00">12:00</option>
-          <option value="13:00">13:00</option>
-          <option value="14:00">14:00</option>
-          <option value="15:00">15:00</option>
-          <option value="16:00">16:00</option>
-          <option value="17:00">17:00</option>
-          <option value="18:00">18:00</option>
-          <option value="19:00">19:00</option>
-        </select>
+        <div class="details-grid">
+          <article class="detail">
+            <h3>Точность</h3>
+            <p>
+              Внимание к форме, контурам и деталям каждой стрижки.
+            </p>
+          </article>
 
-        <button type="submit">Отправить заявку</button>
-        <p id="booking-message" role="status" aria-live="polite"></p>
-      </form>
+          <article class="detail">
+            <h3>Твой стиль</h3>
+            <p>
+              Подбираем образ с учётом твоих предпочтений.
+            </p>
+          </article>
+
+          <article class="detail">
+            <h3>Удобная запись</h3>
+            <p>
+              Выбирай услугу, дату и доступное время онлайн.
+            </p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section booking" id="booking">
+      <div class="container booking-layout">
+        <div class="booking-copy">
+          <div class="section-label">BOOK YOUR VISIT</div>
+          <div class="section-heading">
+            <h2>ТВОЯ СЛЕДУЮЩАЯ <span class="gold">СТРИЖКА</span></h2>
+          </div>
+
+          <p>
+            Выбери услугу и удобное время.
+            После отправки заявка поступит администратору
+            для подтверждения.
+          </p>
+
+          <div class="booking-note">
+            Отправка формы создаёт заявку, но сама по себе
+            не означает, что запись уже подтверждена.
+            Дождись подтверждения администратора.
+          </div>
+        </div>
+
+        <form class="booking-form" id="booking-form">
+          <h3 class="form-title">Онлайн-запись</h3>
+
+          <div class="form-group">
+            <label for="customer-name">Твоё имя</label>
+            <input
+              id="customer-name"
+              name="customer_name"
+              type="text"
+              placeholder="Как к тебе обращаться"
+              minlength="2"
+              maxlength="80"
+              autocomplete="name"
+              required
+            >
+          </div>
+
+          <div class="form-group">
+            <label for="customer-phone">Номер телефона</label>
+            <input
+              id="customer-phone"
+              name="phone"
+              type="tel"
+              placeholder="+7 900 000-00-00"
+              minlength="6"
+              maxlength="30"
+              autocomplete="tel"
+              required
+            >
+          </div>
+
+          <div class="form-group">
+            <label for="service">Услуга</label>
+            <select id="service" name="service" required>
+              <option value="" selected disabled>Выбери услугу</option>
+              <option value="Мужская стрижка">Мужская стрижка — 2 000 ₽</option>
+              <option value="Оформление бороды">Оформление бороды — 1 000 ₽</option>
+              <option value="Комплекс">Комплекс — 1 600 ₽</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="booking-date">Дата</label>
+            <input
+              id="booking-date"
+              name="booking_date"
+              type="date"
+              required
+            >
+          </div>
+
+          <div class="form-group">
+            <label for="booking-time">Время</label>
+            <select id="booking-time" name="booking_time" required>
+              <option value="" selected disabled>Сначала выбери дату</option>
+            </select>
+            <span class="form-hint">
+              Доступность времени проверяется при отправке заявки.
+            </span>
+          </div>
+
+          <button class="button form-submit" id="submit-button" type="submit">
+            Отправить заявку
+          </button>
+
+          <div
+            class="form-message"
+            id="form-message"
+            role="status"
+            aria-live="polite"
+          ></div>
+        </form>
+      </div>
     </section>
   </main>
 
-  <footer id="contacts">
-    <h2>NORTH Barbershop</h2>
-    <p>Запись по телефону: +7 (900) 000-00-00</p>
-    <p><a href="#booking">Оставить заявку онлайн</a></p>
-    <p>© 2026 NORTH Barbershop</p>
+  <footer class="footer">
+    <div class="container footer-content">
+      <div>
+        <div class="footer-brand">NORTH</div>
+        <p>BARBERSHOP · Мужские стрижки</p>
+      </div>
+
+      <div class="footer-links">
+        <a href="#home">Главная</a>
+        <a href="#services">Услуги и цены</a>
+        <a href="#booking">Запись</a>
+      </div>
+
+      <p>© <span id="current-year"></span> NORTH Barbershop</p>
+    </div>
   </footer>
 
   <script>
-    const SUPABASE_URL = "https://dctbpxvfpqdidzbewryr.supabase.co";
-    const SUPABASE_KEY = "sb_publishable_nL_Ndkc8LbZ6dG-n5j9DGg_lWwwPE3C";
+    /*
+      SUPABASE
+      Используется публичный publishable key.
+      Не вставляй сюда secret key или service_role key.
+    */
 
-    const form = document.querySelector("#booking-form");
-    const message = document.querySelector("#booking-message");
-    const dateInput = document.querySelector("#booking-date");
-    const timeInput = document.querySelector("#booking-time");
-    const submitButton = form.querySelector('button[type="submit"]');
+    const SUPABASE_URL =
+      "https://dctbpxvfpqdidzbewryr.supabase.co";
 
-    const allowedServices = [
-      "Мужская стрижка",
-      "Стрижка бороды",
-      "Комплекс"
+    const SUPABASE_KEY =
+      "sb_publishable_nL_Ndkc8LbZ6dG-n5j9DGg_lWwwPE3C";
+
+    const form = document.getElementById("booking-form");
+    const nameInput = document.getElementById("customer-name");
+    const phoneInput = document.getElementById("customer-phone");
+    const serviceInput = document.getElementById("service");
+    const dateInput = document.getElementById("booking-date");
+    const timeInput = document.getElementById("booking-time");
+    const submitButton = document.getElementById("submit-button");
+    const messageBox = document.getElementById("form-message");
+
+    const TIMES = [
+      "10:00",
+      "11:00",
+      "12:00",
+      "13:00",
+      "14:00",
+      "15:00",
+      "16:00",
+      "17:00",
+      "18:00",
+      "19:00"
     ];
 
-    const allowedTimes = [
-      "10:00", "11:00", "12:00", "13:00", "14:00",
-      "15:00", "16:00", "17:00", "18:00", "19:00"
-    ];
+    document.getElementById("current-year").textContent =
+      new Date().getFullYear();
 
-    function localDateString() {
-      const now = new Date();
-      const local = new Date(now.getTime() - now.getTimezoneOffset() * 60000);
-      return local.toISOString().slice(0, 10);
-    }
+    function localDateString(date) {
+      const year = date.getFullYear();
+      const month = String(date.getMonth() + 1).padStart(2, "0");
+      const day = String(date.getDate()).padStart(2, "0");
 
-    function selectedSlotIsPast(date, time) {
-      const now = new Date();
-      const [year, month, day] = date.split("-").map(Number);
-      const [hour, minute] = time.split(":").map(Number);
-      const selected = new Date(year, month - 1, day, hour, minute, 0, 0);
-      return selected.getTime() <= now.getTime();
+      return `${year}-${month}-${day}`;
     }
 
     function showMessage(text, type) {
-      message.textContent = text;
-      message.className = type || "";
+      messageBox.textContent = text;
+      messageBox.className = `form-message visible ${type}`;
     }
 
-    dateInput.min = localDateString();
+    function clearMessage() {
+      messageBox.textContent = "";
+      messageBox.className = "form-message";
+    }
 
-    dateInput.addEventListener("change", () => {
-      dateInput.min = localDateString();
-      if (dateInput.value && dateInput.value < localDateString()) {
-        dateInput.value = "";
-        showMessage("Выбери сегодняшнюю или будущую дату.", "error");
-      } else {
-        showMessage("", "");
-      }
-    });
+    function isPastSlot(date, time) {
+      const parts = date.split("-").map(Number);
+      const timeParts = time.split(":").map(Number);
 
-    form.addEventListener("submit", async (event) => {
-      event.preventDefault();
+      const selectedDate = new Date(
+        parts[0],
+        parts[1] - 1,
+        parts[2],
+        timeParts[0],
+        timeParts[1],
+        0,
+        0
+      );
 
-      if (submitButton.disabled) return;
+      return selectedDate.getTime() <= Date.now();
+    }
 
-      const formData = new FormData(form);
-      const name = String(formData.get("name") || "").trim();
-      const phone = String(formData.get("phone") || "").trim();
-      const service = String(formData.get("service") || "");
-      const date = String(formData.get("date") || "");
-      const time = String(formData.get("time") || "");
+    function resetTimeOptions(placeholder) {
+      timeInput.replaceChildren();
 
-      if (name.length < 2 || name.length > 100 ||
-          phone.length < 5 || phone.length > 30 ||
-          !allowedServices.includes(service) ||
-          !allowedTimes.includes(time) ||
-          !date || date < localDateString()) {
-        showMessage("Проверь имя, телефон, услугу, дату и время.", "error");
+      const option = document.createElement("option");
+      option.value = "";
+      option.textContent = placeholder;
+      option.disabled = true;
+      option.selected = true;
+
+      timeInput.appendChild(option);
+    }
+
+    function refreshTimeOptions() {
+      clearMessage();
+      resetTimeOptions("Выбери время");
+
+      const selectedDate = dateInput.value;
+
+      if (!selectedDate) {
+        resetTimeOptions("Сначала выбери дату");
         return;
       }
 
-      if (selectedSlotIsPast(date, time)) {
-        showMessage("Это время уже прошло. Выбери другое время.", "error");
+      if (selectedDate < localDateString(new Date())) {
+        resetTimeOptions("Выбери сегодняшнюю или будущую дату");
+        return;
+      }
+
+      const availableOptions = TIMES.filter(
+        time => !isPastSlot(selectedDate, time)
+      );
+
+      if (availableOptions.length === 0) {
+        resetTimeOptions("Нет доступного времени на эту дату");
+        return;
+      }
+
+      resetTimeOptions("Выбери время");
+
+      availableOptions.forEach(time => {
+        const option = document.createElement("option");
+        option.value = time;
+        option.textContent = time;
+        timeInput.appendChild(option);
+      });
+    }
+
+    function setMinimumDate() {
+      dateInput.min = localDateString(new Date());
+    }
+
+    setMinimumDate();
+    refreshTimeOptions();
+
+    dateInput.addEventListener("change", refreshTimeOptions);
+
+    // Обновляем список, если страница долго оставалась открытой.
+    document.addEventListener("visibilitychange", () => {
+      if (!document.hidden) {
+        setMinimumDate();
+        refreshTimeOptions();
+      }
+    });
+
+    form.addEventListener("submit", async event => {
+      event.preventDefault();
+      clearMessage();
+
+      const customerName = nameInput.value.trim();
+      const phone = phoneInput.value.trim();
+      const service = serviceInput.value;
+      const bookingDate = dateInput.value;
+      const bookingTime = timeInput.value;
+
+      if (customerName.length < 2) {
+        showMessage("Пожалуйста, введи имя длиной не менее 2 символов.", "error");
+        nameInput.focus();
+        return;
+      }
+
+      if (phone.length < 6) {
+        showMessage("Проверь номер телефона.", "error");
+        phoneInput.focus();
+        return;
+      }
+
+      if (!service || !bookingDate || !bookingTime) {
+        showMessage("Заполни все поля и выбери дату и время.", "error");
+        return;
+      }
+
+      setMinimumDate();
+
+      if (bookingDate < localDateString(new Date())) {
+        showMessage("Нельзя записаться на прошедшую дату.", "error");
+        return;
+      }
+
+      if (isPastSlot(bookingDate, bookingTime)) {
+        showMessage("Это время уже прошло. Выбери другое.", "error");
+        refreshTimeOptions();
         return;
       }
 
       submitButton.disabled = true;
-      showMessage("Отправляем заявку…", "");
+      submitButton.textContent = "Отправляем заявку…";
 
       try {
-        const response = await fetch(`${SUPABASE_URL}/rest/v1/bookings`, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            "apikey": SUPABASE_KEY,
-            "Authorization": `Bearer ${SUPABASE_KEY}`,
-            "Prefer": "return=minimal"
-          },
-          body: JSON.stringify({
-            customer_name: name,
-            phone: phone,
-            service: service,
-            booking_date: date,
-            booking_time: time,
-            status: "pending"
-          })
-        });
-
-        if (!response.ok) {
-          const error = await response.json().catch(() => ({}));
-          const errorText = JSON.stringify(error);
-
-          if (response.status === 409 ||
-              error.code === "23505" ||
-              errorText.includes("bookings_unique_active_slot")) {
-            showMessage(
-              "Это время уже занято. Выбери другую дату или время.",
-              "error"
-            );
-            return;
+        const response = await fetch(
+          `${SUPABASE_URL}/rest/v1/bookings`,
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              "apikey": SUPABASE_KEY,
+              "Authorization": `Bearer ${SUPABASE_KEY}`,
+              "Prefer": "return=minimal"
+            },
+            body: JSON.stringify({
+              customer_name: customerName,
+              phone: phone,
+              service: service,
+              booking_date: bookingDate,
+              booking_time: bookingTime,
+              status: "pending"
+            })
           }
+        );
 
-          if (response.status === 401 || response.status === 403) {
-            showMessage(
-              "Не удалось отправить заявку из-за ограничений доступа. Попробуй позже.",
-              "error"
-            );
-            return;
-          }
-
+        if (response.ok) {
           showMessage(
-            "Не удалось сохранить заявку. Попробуй ещё раз чуть позже.",
+            "Заявка успешно отправлена! Дождись подтверждения администратора.",
+            "success"
+          );
+
+          form.reset();
+          setMinimumDate();
+          refreshTimeOptions();
+          return;
+        }
+
+        const responseText = await response.text();
+        let errorData = {};
+
+        try {
+          errorData = responseText ? JSON.parse(responseText) : {};
+        } catch (_) {
+          errorData = {};
+        }
+
+        const errorText = [
+          errorData.message,
+          errorData.details,
+          errorData.hint,
+          errorData.code,
+          responseText
+        ].filter(Boolean).join(" ").toLowerCase();
+
+        const duplicate =
+          response.status === 409 ||
+          errorData.code === "23505" ||
+          errorText.includes("bookings_unique_active_slot") ||
+          (
+            errorText.includes("duplicate key") &&
+            errorText.includes("booking")
+          );
+
+        if (duplicate) {
+          showMessage(
+            "Это время уже занято. Пожалуйста, выбери другую дату или время.",
+            "error"
+          );
+
+          refreshTimeOptions();
+          return;
+        }
+
+        if (response.status === 401 || response.status === 403) {
+          showMessage(
+            "Не удалось отправить заявку. Проверьте настройки доступа к записи в Supabase.",
             "error"
           );
           return;
         }
 
+        console.error("Supabase booking error:", response.status, responseText);
+
         showMessage(
-          `Спасибо, ${name}! Заявка отправлена на ${date} в ${time}. Мастер свяжется с тобой для подтверждения.`,
-          "success"
-        );
-        form.reset();
-        dateInput.min = localDateString();
-      } catch {
-        showMessage(
-          "Не удалось связаться с сервером. Проверь интернет и попробуй ещё раз.",
+          "Не удалось отправить заявку. Попробуй ещё раз позже.",
           "error"
         );
+
+      } catch (error) {
+        console.error("Booking request failed:", error);
+
+        showMessage(
+          "Ошибка соединения. Проверь интернет и попробуй ещё раз.",
+          "error"
+        );
+
       } finally {
         submitButton.disabled = false;
+        submitButton.textContent = "Отправить заявку";
       }
     });
   </script>
