@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>North Barbershop</title>
+  <style>
+    * { box-sizing: border-box; }
+    :root {
+      --gold: #c6a46a;
+      --gold-light: #e0c18a;
+      --black: #101010;
+      --panel: #191919;
+      --muted: #b4b0a8;
+      --line: rgba(198, 164, 106, 0.28);
+    }
+    html { scroll-behavior: smooth; scroll-padding-top: 90px; }
+    body { margin: 0; font-family: Arial, sans-serif; background: var(--black); color: #f7f4ee; line-height: 1.6; }
+    header {
+      position: sticky; top: 0; z-index: 10; padding: 20px 8%; display: flex;
+      justify-content: space-between; align-items: center; gap: 18px;
+      background: rgba(16,16,16,.96); backdrop-filter: blur(12px); border-bottom: 1px solid var(--line);
+    }
+    .logo { display: flex; flex-direction: column; line-height: 1.15; color: var(--gold); font-size: 28px; font-weight: bold; letter-spacing: 5px; }
+    .logo-subtitle { margin-top: 5px; color: var(--muted); font-size: 9px; font-weight: normal; letter-spacing: 2.5px; }
+    nav { display: flex; flex-wrap: wrap; gap: 22px; }
+    nav a { color: #fff; text-decoration: none; transition: color .2s; }
+    nav a:hover { color: var(--gold); }
+    .hero {
+      min-height: 78vh; padding: 100px 8%; display: flex; flex-direction: column;
+      justify-content: center; align-items: flex-start; border-bottom: 1px solid var(--line);
+      background: linear-gradient(90deg, rgba(17,17,17,.96) 0%, rgba(17,17,17,.65) 55%, rgba(17,17,17,.25) 100%),
+      url("https://images.unsplash.com/photo-1503951914875-452162b0f3f1?auto=format&fit=crop&w=1800&q=85");
+      background-size: cover; background-position: center;
+    }
+    .hero p { color: var(--gold); letter-spacing: 4px; text-transform: uppercase; font-size: 13px; font-weight: bold; }
+    h1 { font-size: clamp(42px, 7vw, 86px); line-height: 1.06; letter-spacing: -2px; margin: 10px 0 20px; max-width: 800px; }
+    .hero a { display: inline-block; width: fit-content; margin-top: 16px; padding: 16px 28px; background: var(--gold); border: 1px solid var(--gold); color: #111; text-decoration: none; font-weight: bold; transition: background .2s, transform .2s; }
+    .hero a:hover { background: var(--gold-light); transform: translateY(-2px); }
+    .services { padding: 76px 8%; }
+    .services h2 { margin: 0 0 28px; font-size: clamp(28px, 4vw, 42px); line-height: 1.2; }
+    .service-list { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 22px; }
+    .service { padding: 30px; background: linear-gradient(145deg, #1d1d1d, #141414); border: 1px solid #35312a; transition: transform .25s, border-color .25s; }
+    .service:hover { transform: translateY(-5px); border-color: var(--gold); }
+    .service h3 { color: var(--gold); font-size: 21px; line-height: 1.35; }
+    .service p { min-height: 52px; color: var(--muted); }
+    .service strong { display: inline-block; margin-top: 12px; color: var(--gold-light); font-size: 18px; }
+    #booking { background: #151515; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+    #booking > p { margin-bottom: 30px; color: var(--muted); }
+    #booking-form { max-width: 560px; display: grid; gap: 12px; padding: 28px; background: #1b1b1b; border: 1px solid #39342b; border-radius: 8px; }
+    #booking-form label { margin-top: 8px; color: var(--gold); font-size: 14px; font-weight: bold; }
+    #booking-form input, #booking-form select { width: 100%; min-height: 48px; padding: 14px; border: 1px solid #45413a; border-radius: 4px; outline: none; background: #1b1b1b; color: white; font: inherit; }
+    #booking-form input:focus, #booking-form select:focus { border-color: var(--gold); }
+    #booking-form button { min-height: 52px; margin-top: 12px; padding: 16px; border: none; border-radius: 4px; background: var(--gold); color: #111; font-size: 15px; font-weight: bold; cursor: pointer; transition: background .2s; }
+    #booking-form button:hover { background: var(--gold-light); }
+    #booking-form button:disabled { opacity: .6; cursor: wait; }
+    #booking-message { line-height: 1.5; overflow-wrap: anywhere; }
+    footer { padding: 38px 8%; border-top: 1px solid #333; color: var(--muted); }
+    footer h2 { color: var(--gold); letter-spacing: 2px; }
+    @media (max-width: 600px) {
+      header { padding: 16px 5%; }
+      .logo { font-size: 22px; letter-spacing: 3px; }
+      .logo-subtitle { font-size: 8px; letter-spacing: 1.5px; }
+      nav { gap: 10px; }
+      nav a { font-size: 13px; }
+      .hero { min-height: 68vh; padding: 80px 6%; }
+      .hero p { font-size: 11px; letter-spacing: 3px; }
+      h1 { letter-spacing: -1px; }
+      .services { padding: 52px 6%; }
+      .service { padding: 24px; }
+      #booking-form { padding: 20px; }
+      footer { padding: 28px 6%; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo">NORTH<span class="logo-subtitle">BARBERSHOP • EST. 2026</span></div>
+    <nav><a href="#services">Услуги</a><a href="#contacts">Контакты</a></nav>
+  </header>
+  <main>
+    <section class="hero">
+      <p>Мужская парикмахерская</p>
+      <h1>Твой стиль.<br>Твои правила.</h1>
+      <a href="#booking">Записаться</a>
+    </section>
+    <section class="services" id="services">
+      <h2>Наши услуги</h2>
+      <div class="service-list">
+        <article class="service"><h3>Мужская стрижка</h3><p>Аккуратная стрижка с учётом твоего стиля.</p><strong>от 1 000 ₽</strong></article>
+        <article class="service"><h3>Стрижка бороды</h3><p>Чёткие контуры и ухоженный вид.</p><strong>от 600 ₽</strong></article>
+        <article class="service"><h3>Комплекс</h3><p>Стрижка и оформление бороды.</p><strong>от 1 500 ₽</strong></article>
+      </div>
+    </section>
+    <section class="services" id="booking">
+      <h2>Записаться к мастеру</h2>
+      <p>Оставь свои данные, чтобы подготовить заявку на запись.</p>
+      <form id="booking-form">
+        <label for="client-name">Твоё имя</label>
+        <input id="client-name" name="name" type="text" maxlength="100" placeholder="Например, Алексей" required />
+        <label for="client-phone">Телефон</label>
+        <input id="client-phone" name="phone" type="tel" maxlength="30" placeholder="+7 900 000-00-00" required />
+        <label for="service">Услуга</label>
+        <select id="service" name="service" required>
+          <option value="">Выбери услугу</option>
+          <option value="Мужская стрижка">Мужская стрижка</option>
+          <option value="Стрижка бороды">Стрижка бороды</option>
+          <option value="Комплекс">Комплекс</option>
+        </select>
+        <label for="booking-date">Желаемая дата</label>
+        <input id="booking-date" name="date" type="date" required />
+        <label for="booking-time">Желаемое время</label>
+        <select id="booking-time" name="time" required>
+          <option value="">Выбери время</option>
+          <option value="10:00">10:00</option><option value="11:00">11:00</option>
+          <option value="12:00">12:00</option><option value="13:00">13:00</option>
+          <option value="14:00">14:00</option><option value="15:00">15:00</option>
+          <option value="16:00">16:00</option><option value="17:00">17:00</option>
+          <option value="18:00">18:00</option><option value="19:00">19:00</option>
+        </select>
+        <button type="submit">Подтвердить заявку</button>
+        <p id="booking-message" role="status" aria-live="polite"></p>
+      </form>
+    </section>
+  </main>
+  <footer id="contacts"><h2>North Barbershop</h2><p>Запись по телефону: +7 (900) 000-00-00</p><p>© 2026 North Barbershop</p></footer>
+  <script>
+    const SUPABASE_URL = "https://dctbpxvfpqdidzbewryr.supabase.co";
+    // Publishable key — публичный ключ проекта. Никогда не вставляйте Secret key в HTML.
+    const SUPABASE_KEY = "sb_publishable_nL_Ndkc8LbZ6dG-n5j9DGg_lWwwPE3C";
+
+    const bookingForm = document.querySelector("#booking-form");
+    const bookingMessage = document.querySelector("#booking-message");
+    const bookingDate = document.querySelector("#booking-date");
+    const bookingTime = document.querySelector("#booking-time");
+    const submitButton = bookingForm.querySelector('button[type="submit"]');
+
+    function getLocalDateString() {
+      const now = new Date();
+      return new Date(now.getTime() - now.getTimezoneOffset() * 60000).toISOString().slice(0, 10);
+    }
+    const localToday = getLocalDateString();
+    bookingDate.min = localToday;
+
+    bookingForm.addEventListener("submit", async (event) => {
+      event.preventDefault();
+      const formData = new FormData(bookingForm);
+      const name = String(formData.get("name") || "").trim();
+      const phone = String(formData.get("phone") || "").trim();
+      const service = String(formData.get("service") || "");
+      const date = String(formData.get("date") || "");
+      const time = String(formData.get("time") || "");
+
+      if (!name || name.length > 100 || !phone || phone.length < 5 || phone.length > 30 ||
+          !["Мужская стрижка", "Стрижка бороды", "Комплекс"].includes(service) ||
+          !date || date < getLocalDateString() || !time) {
+        bookingMessage.textContent = "Проверь имя, телефон, услугу, дату и время.";
+        return;
+      }
+
+      submitButton.disabled = true;
+      bookingMessage.textContent = "Отправляем заявку…";
+
+      try {
+        const response = await fetch(`${SUPABASE_URL}/rest/v1/bookings`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "apikey": SUPABASE_KEY,
+            "Authorization": `Bearer ${SUPABASE_KEY}`,
+            "Prefer": "return=minimal"
+          },
+          body: JSON.stringify({
+            customer_name: name,
+            phone,
+            service,
+            booking_date: date,
+            booking_time: time,
+            status: "pending"
+          })
+        });
+
+        if (!response.ok) {
+          const error = await response.json().catch(() => ({}));
+          console.error("Supabase error:", error);
+          if (response.status === 409 || error.code === "23505") {
+            throw new Error("Это время уже занято. Выбери другое время или дату.");
+          }
+          if (response.status === 401 || response.status === 403) {
+            throw new Error("Нет доступа к базе. Нужно проверить настройки Data API и RLS в Supabase.");
+          }
+          throw new Error("Не удалось сохранить заявку. Проверь настройки Supabase и попробуй ещё раз.");
+        }
+
+        bookingMessage.textContent = `Спасибо, ${name}! Заявка сохранена на ${date} в ${time}. Мастер свяжется с тобой для подтверждения.`;
+        bookingForm.reset();
+        bookingDate.min = getLocalDateString();
+      } catch (error) {
+        console.error(error);
+        bookingMessage.textContent = error.message || "Не удалось отправить заявку. Попробуй ещё раз.";
+      } finally {
+        submitButton.disabled = false;
+      }
+    });
+  </script>
+</body>
+</html>
